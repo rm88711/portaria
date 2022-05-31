@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="content">
+			<p:messages id="messages" closable="true">
+		    	<p:autoUpdate/>
+		    </p:messages>
+			<h:form>
+				<div class="card" style="margin: 1em">
+					<p:dataTable var="visitante" value="#{visitanteBean.visitantes}" editable="true">
+					<p:ajax event="rowEdit" listener="#{visitanteBean.update()}" update="messages"/>
+					
+						<p:column headerText="image">
+							<img 
+								src="#{request.contextPath}#{visitante.imagePath}"
+								style="width: 120px" 
+								/>
+						</p:column>
+						
+						<p:column headerText="Id">
+							<h:outputText value="#{visitante.id_visitante}" />
+						</p:column>
+	
+						<p:column headerText="Nome">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{visitante.nm_visitante}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{visitante.nm_visitante}" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+	
+						<p:column headerText="Data de Nascimento">
+							<h:outputText value="#{visitante.dt_nasc}" />
+						</p:column>
+	
+						<p:column headerText="CPF:">
+							<h:outputText value="#{visitante.nr_cpf}" />
+						</p:column>
+						
+						<p:column headerText="RG:">
+							<h:outputText value="#{visitante.nr_rg}" />
+						</p:column>
+						
+						<p:column headerText="Dígito do RG: ">
+							<h:outputText value="#{visitante.nm_digito_rg}" />
+						</p:column>
+						
+						<p:column headerText="Data de Cadastro :">
+							<h:outputText value="#{visitante.dt_cadastro}" />
+						</p:column>
+						
+						<p:column style="width:4rem">
+							<p:commandButton action="#{visitanteBean.remove(visitante)}" icon="pi pi-trash"  styleClass="rounded-button ui-button-danger ui-button-flat"   />
+						</p:column>
+						
+						<p:column style="width:4rem">
+			                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+			            </p:column>
+					</p:dataTable>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+
+
+
+</html>
